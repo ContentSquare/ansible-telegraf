@@ -56,8 +56,9 @@ Specifying an output. The default is set to localhost, you'll have to specify th
 	telegraf_agent_output:
 	  - type: influxdb
 	    config:
-	      - urls = ["http://localhost:8086"]
-	      - database = "telegraf"
+	      urls:
+	        - '"http://localhost:8086"'
+	      database: telegraf
             tagpass:
               - diskmetrics = ["true"]
 

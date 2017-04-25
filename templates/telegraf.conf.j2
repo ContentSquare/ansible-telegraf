@@ -33,8 +33,12 @@
 {% if telegraf_agent_output is defined and telegraf_agent_output is iterable %}
 {% for item in telegraf_agent_output %}
 [[outputs.{{ item.type }}]]
-{% for items in item.config %}
-    {{ items }}
+{% for key, value in item.config.items() %}
+{% if key == "urls" %}
+  {{ key }} = [{{ value | join(',') }}]
+{% elif value != "" %}
+  {{ key }} = "{{ value }}"
+{% endif %}
 {% endfor %}
 {% endfor %}
 {% endif %}
