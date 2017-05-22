@@ -45,5 +45,25 @@
     {{ items }}
 {% endfor %}
 {% endif %}
+{% if item.servers is defined and item.servers is iterable %}
+{% for s in item.servers %}
+{% if s is mapping %}
+[[inputs.{{ item.plugin }}.servers]]
+{% for k, v in s.items() %}
+    {{ k }} = "{{ v }}"
+{% endfor %}
+{% endif %}
+{% endfor %}
+{% endif %}
+{% if item.metrics is defined and item.metrics is iterable %}
+{% for m in item.metrics %}
+{% if m is mapping %}
+[[inputs.{{ item.plugin }}.metrics]]
+{% for k, v in m.items() %}
+    {{ k }} = "{{ v }}"
+{% endfor %}
+{% endif %}
+{% endfor %}
+{% endif %}
 {% endfor %}
 {% endif %}
